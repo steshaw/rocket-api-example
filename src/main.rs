@@ -1,13 +1,13 @@
-#![feature(decl_macro)]
+//#![feature(decl_macro)]
 //#![feature(proc_macro_hygiene)]
 
+use rocket::get;
 use rocket::serde::json::Json;
-use rocket_okapi::openapi;
-use rocket_okapi::routes_with_openapi;
-//use rocket_okapi::JsonSchema;
+use rocket_okapi::okapi::schemars;
+use rocket_okapi::okapi::schemars::JsonSchema;
+use rocket_okapi::{openapi, openapi_get_routes, rapidoc::*, swagger_ui::*};
 use serde::Deserialize;
 use serde::Serialize;
-use schemars::JsonSchema;
 
 #[derive(Debug, JsonSchema, Serialize, Deserialize)]
 struct Episode {
@@ -33,14 +33,15 @@ enum Extra {
     Program(Program),
 }
 
-//#[openapi]
-#[rocket::get("/")]
-async fn index() -> &'static str {
+#[openapi]
+#[get("/")]
+fn index() -> &'static str {
     "Hello!\n"
 }
 
-#[rocket::get("/extras")]
-async fn get_extras() -> Json<Vec<Extra>> {
+#[openapi]
+#[get("/extras")]
+fn get_extras() -> Json<Vec<Extra>> {
     Json(extras().into())
 }
 
@@ -73,7 +74,6 @@ fn foo() -> Result<(), serde_json::Error> {
     let extras = extras();
     println!("extras = {}", serde_json::to_string_pretty(&extras)?);
 
-
     let schema = schemars::schema_for!(Episode);
     println!("Episode schema = {}", serde_json::to_string_pretty(&schema)?);
 
@@ -90,22 +90,22 @@ fn foo() -> Result<(), serde_json::Error> {
 }
 
 fn routes() -> Vec<rocket::Route> {
-    [].into()
+    openapi_get_routes![index, get_extras]
 }
 
 #[rocket::launch]
 fn rocket() -> _ {
     let _ = foo();
     rocket::build()
-        .mount("/", rocket::routes![index, get_extras])
+        .mount("/", routes())
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use rocket::http::Status;
-    use rocket::local::*;
     use rocket::*;
+    use rocket::http::Status;
+    //use rocket::local::Client;
 
     #[test]
     fn foo() {
@@ -120,15 +120,15 @@ mod tests {
         }
     }
 
-/*
+    /*
     #[test]
     fn test_index() {
-        let rkt = rocket::ignite().mount("/", routes![index]);
+        let rkt = rocket::build().mount("/", routes![index]);
         let client = Client::new(rkt).expect("valid rocket");
         let mut resp = client.get("/").dispatch();
         let body = resp.body_string();
         assert_eq!(Status::Ok, resp.status());
         assert_eq!(Some("Hello!\n".into()), body);
     }
-*/
+    */
 }

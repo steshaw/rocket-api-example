@@ -168,9 +168,9 @@ dependencies = [
 
 [[package]]
 name = "darling"
-version = "0.10.2"
+version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0d706e75d87e35569db781a9b5e2416cff1236a47ed380831f959382ccd5f858"
+checksum = "d0d720b8683f8dd83c65155f0530560cba68cd2bf395f6513a483caee57ff7f4"
 dependencies = [
  "darling_core",
  "darling_macro",
@@ -178,9 +178,9 @@ dependencies = [
 
 [[package]]
 name = "darling_core"
-version = "0.10.2"
+version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f0c960ae2da4de88a91b2d920c2a7233b400bc33cb28453a2987822d8392519b"
+checksum = "7a340f241d2ceed1deb47ae36c4144b2707ec7dd0b649f894cb39bb595986324"
 dependencies = [
  "fnv",
  "ident_case",
@@ -192,9 +192,9 @@ dependencies = [
 
 [[package]]
 name = "darling_macro"
-version = "0.10.2"
+version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d9b5a2f4ac4969822c62224815d069952656cadc7084fdca9751e6d959189b72"
+checksum = "72c41b3b7352feb3211a0d743dc5700a4e3b60f51bd2b368892d1e0f9a95f44b"
 dependencies = [
  "darling_core",
  "quote 1.0.10",
@@ -925,6 +925,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "okapi"
+version = "0.7.0-rc.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ce66b6366e049880a35c378123fddb630b1a1a3c37fa1ca70caaf4a09f6e2893"
+dependencies = [
+ "log 0.4.14",
+ "schemars 0.8.8",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "once_cell"
 version = "1.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1251,11 +1263,10 @@ dependencies = [
 name = "rocket-eg-1"
 version = "0.1.0"
 dependencies = [
- "okapi",
+ "okapi 0.4.0",
  "rocket 0.5.0-rc.1",
  "rocket_contrib",
  "rocket_okapi",
- "schemars 0.8.8",
  "serde",
  "serde_json",
 ]
@@ -1351,29 +1362,30 @@ dependencies = [
 
 [[package]]
 name = "rocket_okapi"
-version = "0.5.1"
+version = "0.8.0-rc.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cf633b45fd1c03ed4e4da824d9fafbecab8af298e46716ab0cf446fdf36c58b2"
+checksum = "0025aa04994af8cd8e1fcdd5a73579a395c941ae090ecb0a39b41cca7e237a20"
 dependencies = [
- "okapi",
- "rocket 0.4.10",
- "rocket_contrib",
+ "either",
+ "log 0.4.14",
+ "okapi 0.7.0-rc.1",
+ "rocket 0.5.0-rc.1",
  "rocket_okapi_codegen",
- "schemars 0.7.6",
+ "schemars 0.8.8",
  "serde",
  "serde_json",
 ]
 
 [[package]]
 name = "rocket_okapi_codegen"
-version = "0.5.1"
+version = "0.8.0-rc.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b630c92ffa097a6425262547732e6bc19d80a24628d209126bd52c65acd96490"
+checksum = "dc114779fc27afb78179233e966f469e47fd7a98dc15181cff2574cdddb65612"
 dependencies = [
  "darling",
  "proc-macro2 1.0.33",
  "quote 1.0.10",
- "rocket_http 0.4.10",
+ "rocket_http 0.5.0-rc.1",
  "syn 1.0.82",
 ]
 
@@ -1431,6 +1443,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c6b5a3c80cea1ab61f4260238409510e814e38b4b563c06044edf91e7dc070e3"
 dependencies = [
  "dyn-clone",
+ "indexmap",
  "schemars_derive 0.8.8",
  "serde",
  "serde_json",
@@ -1665,9 +1678,9 @@ checksum = "213701ba3370744dcd1a12960caa4843b3d68b4d1c0a5d575e0d65b2ee9d16c0"
 
 [[package]]
 name = "strsim"
-version = "0.9.3"
+version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6446ced80d6c486436db5c078dde11a9f73d42b57fb273121e160b84f63d894c"
+checksum = "73473c0e59e6d5812c5dfe2a064a6444949f089e20eec9a2e5506596494e4623"
 
 [[package]]
 name = "syn"

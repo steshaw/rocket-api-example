@@ -2,4 +2,8 @@
 
 set -euo pipefail
 
-curl -sS http://localhost:8000/extras/ | jq
+base='http://127.0.0.1:8000'
+
+curl -sS "$base"
+curl -sS "$base/extras/" | jq
+curl -sS "$base/openapi.json" | jq
