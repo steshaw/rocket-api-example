@@ -1,5 +1,7 @@
 #![feature(decl_macro)]
 
+use rocket::routes;
+
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
 struct Episode {
     id: String,
@@ -56,7 +58,38 @@ fn foo() -> Result<(), serde_json::Error> {
 
     Ok(())
 }
+
 fn main() {
     let _ = foo();
-    rocket::ignite().mount("/", rocket::routes![index]).launch();
+    rocket::ignite().mount("/", routes![index]).launch();
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use rocket::http::Status;
+    use rocket::local::*;
+
+    #[test]
+    fn foo() {
+        let actual = 1 + 1;
+        assert_eq!(2, actual);
+    }
+
+    #[test]
+    fn argh() {
+        if false {
+            panic!("boo!");
+        }
+    }
+
+    #[test]
+    fn test_index() {
+        let rkt = rocket::ignite().mount("/", routes![index]);
+        let client = Client::new(rkt).expect("valid rocket");
+        let mut resp = client.get("/").dispatch();
+        let body = resp.body_string();
+        assert_eq!(Status::Ok, resp.status());
+        assert_eq!(Some("Hello!\n".into()), body);
+    }
 }
