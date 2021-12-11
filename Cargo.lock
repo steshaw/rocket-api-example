@@ -273,6 +273,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "212d0f5754cb6769937f4501cc0e67f4f4483c8d2c3e1e922ee9edbe4ab4c7c0"
 
 [[package]]
+name = "dyn-clone"
+version = "1.0.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ee2626afccd7561a06cf1367e2950c4718ea04565e20fb5029b6c7d8ad09abcf"
+
+[[package]]
 name = "either"
 version = "1.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -909,11 +915,11 @@ dependencies = [
 
 [[package]]
 name = "okapi"
-version = "0.3.0"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6a62e8c05972b7b21c71e66fa99e61e36fc6f771c649a0592f0aeef56f30f9ec"
+checksum = "e969ac53c86c158761836e746be203f4cfd774445bd8aff4bfdcf8e42dd93891"
 dependencies = [
- "schemars",
+ "schemars 0.7.6",
  "serde",
  "serde_json",
 ]
@@ -1249,7 +1255,7 @@ dependencies = [
  "rocket 0.5.0-rc.1",
  "rocket_contrib",
  "rocket_okapi",
- "schemars",
+ "schemars 0.8.8",
  "serde",
  "serde_json",
 ]
@@ -1345,24 +1351,24 @@ dependencies = [
 
 [[package]]
 name = "rocket_okapi"
-version = "0.3.6"
+version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dfb62bf82c06d7559d092e50ed7ee421d5148be3f91d4070489c5c07a6746e54"
+checksum = "cf633b45fd1c03ed4e4da824d9fafbecab8af298e46716ab0cf446fdf36c58b2"
 dependencies = [
  "okapi",
  "rocket 0.4.10",
  "rocket_contrib",
  "rocket_okapi_codegen",
- "schemars",
+ "schemars 0.7.6",
  "serde",
  "serde_json",
 ]
 
 [[package]]
 name = "rocket_okapi_codegen"
-version = "0.3.6"
+version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9c2de170428639743f5203076f7caded064f0f5cbcd5bdf10222ee3f5f5a6432"
+checksum = "b630c92ffa097a6425262547732e6bc19d80a24628d209126bd52c65acd96490"
 dependencies = [
  "darling",
  "proc-macro2 1.0.33",
@@ -1409,20 +1415,44 @@ dependencies = [
 
 [[package]]
 name = "schemars"
-version = "0.6.5"
+version = "0.7.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "07569773d6aaf3324812c6572244aec08521b64ce056f2be3b5cc135fb63caec"
+checksum = "be77ed66abed6954aabf6a3e31a84706bedbf93750d267e92ef4a6d90bbd6a61"
 dependencies = [
- "schemars_derive",
+ "schemars_derive 0.7.6",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "schemars"
+version = "0.8.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c6b5a3c80cea1ab61f4260238409510e814e38b4b563c06044edf91e7dc070e3"
+dependencies = [
+ "dyn-clone",
+ "schemars_derive 0.8.8",
  "serde",
  "serde_json",
 ]
 
 [[package]]
 name = "schemars_derive"
-version = "0.6.5"
+version = "0.7.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "38535ecef477d8495dc6c288e876c03c4428b8141ffa57803111348cf14230a9"
+checksum = "11af7a475c9ee266cfaa9e303a47c830ebe072bf3101ab907a7b7b9d816fa01d"
+dependencies = [
+ "proc-macro2 1.0.33",
+ "quote 1.0.10",
+ "serde_derive_internals",
+ "syn 1.0.82",
+]
+
+[[package]]
+name = "schemars_derive"
+version = "0.8.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "41ae4dce13e8614c46ac3c38ef1c0d668b101df6ac39817aebdaa26642ddae9b"
 dependencies = [
  "proc-macro2 1.0.33",
  "quote 1.0.10",

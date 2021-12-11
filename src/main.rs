@@ -4,9 +4,10 @@
 use rocket::serde::json::Json;
 use rocket_okapi::openapi;
 use rocket_okapi::routes_with_openapi;
-use rocket_okapi::JsonSchema;
+//use rocket_okapi::JsonSchema;
 use serde::Deserialize;
 use serde::Serialize;
+use schemars::JsonSchema;
 
 #[derive(Debug, JsonSchema, Serialize, Deserialize)]
 struct Episode {
@@ -71,6 +72,19 @@ fn foo() -> Result<(), serde_json::Error> {
 
     let extras = extras();
     println!("extras = {}", serde_json::to_string_pretty(&extras)?);
+
+
+    let schema = schemars::schema_for!(Episode);
+    println!("Episode schema = {}", serde_json::to_string_pretty(&schema)?);
+
+    let schema = schemars::schema_for!(Clip);
+    println!("Clip schema = {}", serde_json::to_string_pretty(&schema)?);
+
+    let schema = schemars::schema_for!(Program);
+    println!("Program schema = {}", serde_json::to_string_pretty(&schema)?);
+
+    let schema = schemars::schema_for!(Extra);
+    println!("Extra schema = {}", serde_json::to_string_pretty(&schema)?);
 
     Ok(())
 }
