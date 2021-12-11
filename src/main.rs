@@ -1,3 +1,5 @@
+#![feature(decl_macro)]
+
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
 struct Episode {
     id: String,
@@ -22,7 +24,12 @@ enum Extra {
     Program(Program),
 }
 
-fn main() -> Result<(), serde_json::Error> {
+#[rocket::get("/")]
+fn index() -> &'static str {
+    "Hello!"
+}
+
+fn foo() -> Result<(), serde_json::Error> {
     let ep = Episode {
         id: "0a234-234-23".to_string(),
         short_title: "The Blade Itself".to_string(),
@@ -48,4 +55,8 @@ fn main() -> Result<(), serde_json::Error> {
     println!("extras = {}", serde_json::to_string_pretty(&extras)?);
 
     Ok(())
+}
+fn main() {
+    let _ = foo();
+    rocket::ignite().mount("/", rocket::routes![index]).launch();
 }
