@@ -1,6 +1,7 @@
 #![feature(decl_macro)]
 
 use rocket::routes;
+use rocket_contrib::json::*;
 
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
 struct Episode {
@@ -31,6 +32,26 @@ fn index() -> &'static str {
     "Hello!\n"
 }
 
+#[rocket::get("/extras")]
+fn get_extras() -> Json<Vec<Extra>> {
+    Json(extras().into())
+}
+
+fn extras() -> [Extra; 3] {
+    [
+        Extra::Episode(Episode {
+            id: "ep-1".to_string(),
+            short_title: "The Blade Itself".to_string(),
+        }),
+        Extra::Clip(Clip {
+            id: "cl-1".to_string(),
+        }),
+        Extra::Program(Program {
+            id: "pg-1".to_string(),
+        }),
+    ]
+}
+
 fn foo() -> Result<(), serde_json::Error> {
     let ep = Episode {
         id: "0a234-234-23".to_string(),
@@ -42,26 +63,19 @@ fn foo() -> Result<(), serde_json::Error> {
     let extra = Extra::Episode(ep);
     println!("extra = {}", serde_json::to_string_pretty(&extra)?);
 
-    let extras = [
-        Extra::Episode(Episode {
-            id: "ep-1".to_string(),
-            short_title: "The Blade Itself".to_string(),
-        }),
-        Extra::Clip(Clip {
-            id: "cl-1".to_string(),
-        }),
-        Extra::Program(Program {
-            id: "pg-1".to_string(),
-        }),
-    ];
+    let extras = extras();
     println!("extras = {}", serde_json::to_string_pretty(&extras)?);
 
     Ok(())
 }
 
+fn routes() -> Vec<rocket::Route> {
+    routes![index, get_extras]
+}
+
 fn main() {
     let _ = foo();
-    rocket::ignite().mount("/", routes![index]).launch();
+    rocket::ignite().mount("/", routes()).launch();
 }
 
 #[cfg(test)]
