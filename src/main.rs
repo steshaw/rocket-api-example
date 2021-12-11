@@ -26,7 +26,7 @@ enum Extra {
 
 #[rocket::get("/")]
 fn index() -> &'static str {
-    "Hello!"
+    "Hello!\n"
 }
 
 fn foo() -> Result<(), serde_json::Error> {
