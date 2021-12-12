@@ -97,9 +97,9 @@ fn routes() -> Vec<rocket::Route> {
 
 #[rocket::launch]
 fn make_rocket() -> Rocket<Build> {
+    use rocket_okapi::settings::UrlObject;
     let _ = foo();
     rocket::build()
-        // openapi_get_routes![...] will host the openapi document at `openapi.json`
         .mount(
             "/",
             routes(),
@@ -108,6 +108,21 @@ fn make_rocket() -> Rocket<Build> {
             "/swagger-ui/",
             make_swagger_ui(&SwaggerUIConfig {
                 url: "../openapi.json".to_owned(),
+                ..Default::default()
+            }),
+        )
+        .mount(
+            "/rapidoc/",
+            make_rapidoc(&RapiDocConfig {
+                general: GeneralConfig {
+                    spec_urls: vec![UrlObject::new("General", "../openapi.json")],
+                    ..Default::default()
+                },
+                hide_show: HideShowConfig {
+                    allow_spec_url_load: false,
+                    allow_spec_file_load: false,
+                    ..Default::default()
+                },
                 ..Default::default()
             }),
         )
