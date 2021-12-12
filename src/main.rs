@@ -105,7 +105,7 @@ mod tests {
     use super::*;
     use rocket::*;
     use rocket::http::Status;
-    //use rocket::local::Client;
+    use rocket::local::blocking::Client;
 
     #[test]
     fn foo() {
@@ -120,15 +120,13 @@ mod tests {
         }
     }
 
-    /*
     #[test]
     fn test_index() {
         let rkt = rocket::build().mount("/", routes![index]);
-        let client = Client::new(rkt).expect("valid rocket");
-        let mut resp = client.get("/").dispatch();
-        let body = resp.body_string();
+        let client = Client::tracked(rkt).expect("valid rocket");
+        let resp = client.get("/").dispatch();
         assert_eq!(Status::Ok, resp.status());
+        let body = resp.into_string();
         assert_eq!(Some("Hello!\n".into()), body);
     }
-    */
 }
