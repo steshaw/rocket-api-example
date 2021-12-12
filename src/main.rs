@@ -2,6 +2,8 @@
 //#![feature(proc_macro_hygiene)]
 
 use rocket::get;
+use rocket::Rocket;
+use rocket::Build;
 use rocket::serde::json::Json;
 use rocket_okapi::okapi::schemars;
 use rocket_okapi::okapi::schemars::JsonSchema;
@@ -94,10 +96,21 @@ fn routes() -> Vec<rocket::Route> {
 }
 
 #[rocket::launch]
-fn rocket() -> _ {
+fn make_rocket() -> Rocket<Build> {
     let _ = foo();
     rocket::build()
-        .mount("/", routes())
+        // openapi_get_routes![...] will host the openapi document at `openapi.json`
+        .mount(
+            "/",
+            routes(),
+        )
+        .mount(
+            "/swagger-ui/",
+            make_swagger_ui(&SwaggerUIConfig {
+                url: "../openapi.json".to_owned(),
+                ..Default::default()
+            }),
+        )
 }
 
 #[cfg(test)]
