@@ -621,23 +621,12 @@ dependencies = [
 
 [[package]]
 name = "okapi"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e969ac53c86c158761836e746be203f4cfd774445bd8aff4bfdcf8e42dd93891"
-dependencies = [
- "schemars 0.7.6",
- "serde",
- "serde_json",
-]
-
-[[package]]
-name = "okapi"
 version = "0.7.0-rc.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ce66b6366e049880a35c378123fddb630b1a1a3c37fa1ca70caaf4a09f6e2893"
 dependencies = [
  "log",
- "schemars 0.8.8",
+ "schemars",
  "serde",
  "serde_json",
 ]
@@ -902,7 +891,6 @@ dependencies = [
 name = "rocket-eg-1"
 version = "0.1.0"
 dependencies = [
- "okapi 0.4.0",
  "rocket",
  "rocket_okapi",
  "serde",
@@ -961,10 +949,10 @@ checksum = "0025aa04994af8cd8e1fcdd5a73579a395c941ae090ecb0a39b41cca7e237a20"
 dependencies = [
  "either",
  "log",
- "okapi 0.7.0-rc.1",
+ "okapi",
  "rocket",
  "rocket_okapi_codegen",
- "schemars 0.8.8",
+ "schemars",
  "serde",
  "serde_json",
 ]
@@ -1005,38 +993,15 @@ checksum = "254df5081ce98661a883445175e52efe99d1cb2a5552891d965d2f5d0cad1c16"
 
 [[package]]
 name = "schemars"
-version = "0.7.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "be77ed66abed6954aabf6a3e31a84706bedbf93750d267e92ef4a6d90bbd6a61"
-dependencies = [
- "schemars_derive 0.7.6",
- "serde",
- "serde_json",
-]
-
-[[package]]
-name = "schemars"
 version = "0.8.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c6b5a3c80cea1ab61f4260238409510e814e38b4b563c06044edf91e7dc070e3"
 dependencies = [
  "dyn-clone",
  "indexmap",
- "schemars_derive 0.8.8",
+ "schemars_derive",
  "serde",
  "serde_json",
-]
-
-[[package]]
-name = "schemars_derive"
-version = "0.7.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "11af7a475c9ee266cfaa9e303a47c830ebe072bf3101ab907a7b7b9d816fa01d"
-dependencies = [
- "proc-macro2",
- "quote",
- "serde_derive_internals",
- "syn",
 ]
 
 [[package]]
